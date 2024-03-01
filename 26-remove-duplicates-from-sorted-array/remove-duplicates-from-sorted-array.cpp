@@ -1,12 +1,12 @@
 class Solution {
 public:
     int removeDuplicates(vector<int>& nums) {
-        for (std::vector<int>::iterator it = nums.begin() + 1; it != nums.end();){        
-            if (*it == *(it - 1)) {
-                nums.erase(it);
+        for (int i = 1; i < nums.size();){        
+            if (nums[i] == nums[i - 1]) {
+                nums.erase(nums.begin() + i);
             }
             else {
-                ++it;
+                ++i;
             }
         }
         return nums.size();        
