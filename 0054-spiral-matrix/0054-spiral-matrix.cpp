@@ -1,67 +1,35 @@
 class Solution {
 public:
     std::vector<int> spiralOrder(std::vector<std::vector<int>>& matrix) {
-        enum class Direction_Way {
-            east = 1,
-            south = 2,
-            west = 3,
-            north = 4,
-        };
         std::vector<int> res;
-        Direction_Way direction_way = Direction_Way::east;
-        int count = 0,
+        int rowsize = matrix.size(),
+            colsize = matrix[0].size(),
             up_row = 0,
-            down_row = matrix.size() - 1,
+            down_row =  rowsize - 1,
             left_col = 0,
-            right_col = matrix[0].size() - 1;  
-        for(int k = 0; k < matrix.size() * matrix[0].size(); ++k){
-            switch(direction_way){
-                case Direction_Way::east: {
-                    res.push_back(matrix[up_row][count]);
-                    if (count == right_col) {
-                        count = ++up_row; 
-                        direction_way = Direction_Way::south;
-                    }
-                    else {
-                        ++count;
-                    }
-                    break;
-                };
-                case Direction_Way::south: {
-                    res.push_back(matrix[count][right_col]);
-                    if (count == down_row) {
-                        count = --right_col; 
-                        direction_way = Direction_Way::west;
-                    }
-                    else {
-                        ++count;
-                    }
-                    break;
-                };
-                case Direction_Way::west: {
-                    res.push_back(matrix[down_row][count]);
-                    if (count == left_col) {
-                        count = --down_row; 
-                        direction_way = Direction_Way::north;
-                    }
-                    else {
-                        --count;
-                    }
-                    break;
-                };
-                case Direction_Way::north: {
-                    res.push_back(matrix[count][left_col]);
-                    if (count == up_row) {
-                        count = ++left_col; 
-                        direction_way = Direction_Way::east;
-                    }
-                    else {
-                        --count;
-                    }
-                    break;
-                };
+            right_col = colsize - 1;  
+        while(res.size() < rowsize * colsize ){
+            for(int i = left_col; i <= right_col; ++i){
+                res.push_back(matrix[up_row][i]);
+            }
+            for(int i = up_row + 1; i <= down_row; ++i){
+                res.push_back(matrix[i][right_col]);
+            }
+            if (up_row != down_row) {
+                for(int i = right_col - 1; i >= left_col; --i){
+                res.push_back(matrix[down_row][i]);
+                }
             }    
-        }
+            if (left_col != right_col) {
+                for(int i = down_row - 1; i > up_row; --i){
+                    res.push_back(matrix[i][left_col]);
+                }    
+            }
+            ++up_row;
+            --down_row;
+            ++left_col;
+            --right_col;  
+        }    
         return res;
     }
 };
