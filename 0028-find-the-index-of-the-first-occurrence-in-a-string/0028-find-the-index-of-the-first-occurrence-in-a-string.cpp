@@ -1,10 +1,7 @@
 class Solution {
 public:
     int strStr(string haystack, string needle) {
-        int res = haystack.find(needle);
-        if (res == std::string::npos) {
-            return -1;
-        }
-        return res;
+        size_t res = haystack.find(needle);
+        return res == std::string::npos ? -1 : res;
     }        
 };
