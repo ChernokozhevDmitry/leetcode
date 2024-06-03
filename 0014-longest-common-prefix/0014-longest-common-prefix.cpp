@@ -12,7 +12,6 @@ public:
                 }
             }
             ans+=strs[0][j];
-            std::cout << "ans = " << ans << std::endl;
         }
         return ans;   
     }
